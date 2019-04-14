@@ -1,0 +1,57 @@
+#This program allows us to send text messages via email
+
+#using the targets cellular sms gateway address
+
+#we can set multiple source email addresses so the target
+
+#receives messages from multiple users
+
+import time
+
+import smtplib
+
+#All configuration changes should occur in this portion of the code
+
+email_server = 'smtp.gmail.com' #smtp address for source email address
+
+email_server_port = 587 #port number of smtp server for source email
+
+email_address = ["exampleaddress@gmail.com","cramhackexample@gmail.com"] #email to send from
+
+#you can add an email by simply putting a comma and inserting another email and password
+
+email_password = ["passwordForEmail","NextEmailsPassword"] #email address password
+
+msg = "message to send" #Whatever you want to send to the target
+
+number_of_texts = 2 #Amount of times you want to text target
+
+target_email = "3474447777@mms.att.net" #Targets cellular number in email format
+
+pause = 10 #Seconds to wait in between messages
+
+#All configuration changes should occur above this portion of the code
+
+# No more configurations below #
+
+for i in range(0,number_of_texts):
+
+        for x in range(0,len(email_address)):
+
+                server = smtplib.SMTP(email_server, email_server_port)
+
+                server.starttls()
+
+                server.login(email_address[x], email_password[x])
+
+                server.sendmail(email_address[x],target_email,msg)
+
+                print("text message sent")
+
+                server.quit()
+
+                time.sleep(pause)
+
+# PROGRAM COMPLETE
+
+print("All texts have been sent")
